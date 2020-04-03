@@ -17,3 +17,9 @@ class Client:
     def __init__(self, name, cpf):
         self.name = name
         self.cpf = cpf
+
+    def serialize(self):
+        return {
+            'name': self.name,
+            'cpf': self.cpf
+        }

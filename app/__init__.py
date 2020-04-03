@@ -1,4 +1,5 @@
 from app.main.controller.item_controler import api as item_namespace
+from app.main.controller.client_controler import api as client_namespace
 from flask import Flask, Blueprint, url_for
 from flask_restx import Api, Resource, apidoc
 
@@ -25,3 +26,4 @@ blueprint = Blueprint('api', __name__, url_prefix=url_prefix)
 api = MyCustomApi(blueprint, version='1.0', doc="/docs")
 
 api.add_namespace(item_namespace, path="/items")
+api.add_namespace(client_namespace, path="/clients")

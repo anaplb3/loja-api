@@ -18,7 +18,7 @@ class Item(Resource):
     def get(self, id):
         try:
             item = item_service.get_item(id)
-            return jsonify({"data": item.serialize()})
+            return jsonify({"data": item})
         except:
             return jsonify({'data': 'Item não disponível'})
 
@@ -52,6 +52,11 @@ class Item(Resource):
     
 @api.route("")
 class ItemList(Resource):
+    def get(self):
+        items = item_service.get_items()
+        return jsonify({'data': items})
+
+
     @api.doc(body=items_fields)
     def post(self):
         try:

@@ -6,6 +6,13 @@ class ClientService:
         self.connection = repository.create_connection()
         self.cursor = self.connection.cursor()
 
+
+    def get_clients(self):
+        query = "SELECT * FROM clients"
+        self.cursor.execute(query)
+        clients = list(self.cursor.fetchall())
+        return self.serialize_clients(clients)
+
     def get_client(self, id):
         query_get_client = "SELECT id, name, cpf FROM clients WHERE id = {}".format(id)
         self.cursor.execute(query_get_client)
@@ -40,3 +47,14 @@ class ClientService:
             return True
         else:
             return False
+
+    def serialize_clients(self, clients):
+        results = []
+        another = []
+        for i in range(len(clients)):
+            results.append(Client(clients[i][0], clients[i][1], clients[i][2]))
+        
+        for i in range(len(results)):
+            another.append(results[i].serialize())
+        
+        return another

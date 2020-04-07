@@ -47,6 +47,10 @@ class Client(Resource):
 
 @api.route("")
 class ClientList(Resource):
+    def get(self):
+        clients = client_service.get_clients()
+        return jsonify({'data': clients})
+
     @api.doc(body=clients_fields)
     def post(self):
         try:

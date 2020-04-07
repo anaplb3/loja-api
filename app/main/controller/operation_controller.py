@@ -18,7 +18,7 @@ class Operation(Resource):
     def get(self, id):
         try:
             operation = operation_service.get_operation(id)
-            return jsonify({"data": operation.serialize()})
+            return jsonify({"data": operation})
         except Exception as e:
             return jsonify({'data': 'Operação não disponível, {}'.format(str(e))})
 
@@ -50,6 +50,10 @@ class Operation(Resource):
 
 @api.route("")
 class OperationList(Resource):
+    def get(self):
+        return jsonify({'data': operation_service.get_operations()})
+
+
     @api.doc(body=operations_fields)
     def post(self):
         try:
